@@ -1,6 +1,4 @@
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Main {
 	public static void main(String[] args) {
@@ -11,11 +9,19 @@ public class Main {
 			arr[i] = sc.nextInt() % 42;
 		}
 
-		Set<Integer> set = new HashSet<>();
 		for (int i = 0; i < arr.length; i++) {
-			set.add(arr[i]);
+			for (int j = i + 1; j < arr.length; j++) {
+				if (arr[i] == arr[j])
+					arr[i] = 1001;
+			}
 		}
-		System.out.println(set.size());
+        
+		int cnt = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] != 1001)
+				cnt++;
+		}
+		System.out.println(cnt);
 		sc.close();
 	}
 }
