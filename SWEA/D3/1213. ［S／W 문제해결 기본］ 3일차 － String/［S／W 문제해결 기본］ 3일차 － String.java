@@ -16,22 +16,18 @@ public class Solution {
 			char[] textArr = text.toCharArray();
 			int p = ptArr.length;
 			int t = textArr.length;
-
-			int i = 0;
-			int j = 0;
 			int cnt = 0;
 
-			while (i < p && j < t) {
-				if (ptArr[i] != textArr[j]) { // 한 인덱스의 값을 보았을 때 다르면 인덱스 조정하고 다음거 보자.
-					j -= i;
-					i = -1;
+			for (int j = 0; j < t - p + 1; j++) {
+				boolean flag = true;
+				for (int i = 0; i < p; i++) {
+					if (ptArr[i] != textArr[j + i]) {
+						flag = false;
+						break;
+					}
 				}
-				i++;
-				j++;
-				if (i == p) { // 여러번 돌아서 현재 인덱스와 패턴 인덱스가 동일하면 카운트하고 패턴 인덱스는 0으로 만들어줘 글자는 다음거 봐야지
+				if (flag)
 					cnt++;
-					i = 0;
-				}
 			}
 			System.out.println("#" + testNum + " " + cnt);
 		}
