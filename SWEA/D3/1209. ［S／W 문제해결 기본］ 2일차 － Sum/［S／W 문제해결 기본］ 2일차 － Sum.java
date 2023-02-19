@@ -41,17 +41,13 @@ public class Solution {
 				dSum1 += arr[d][d];
 				dSum2 += arr[arr.length - 1 - d][d];
 			}
+
 			maxNum[N * 2] = dSum1;
 			maxNum[N * 2 + 1] = dSum2;
 
 			// 각 합 중 최댓값 구하기
-			int max = -1;
-			for (int m = 0; m < maxNum.length; m++) {
-				if (maxNum[m] > max) {
-					max = maxNum[m];
-				}
-			}
-			System.out.println("#" + (testNum) + " " + max);
+			Arrays.sort(maxNum);
+			System.out.println("#" + (testNum) + " " + maxNum[maxNum.length - 1]);
 		}
 	}
 }
