@@ -1,3 +1,2 @@
-# onlyBaekjoon
-크롬의 백준 허브 익스텐션 활용 연동
-This is a auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
+# 👩‍🎓Baekjoon & Programmers
+백준 및 프로그래머스 알고리즘 연동
