@@ -21,16 +21,17 @@ class Solution {
             }
             
             // 0이거나 마지막 숫자면 판별 시작하고 초기화
-            if(each[i] == '0'||i == each.length-1){
+            if(each[i] == '0'||i == each.length - 1){
                 
-                if(sb.toString().equals("1") ||sb.length()==0){ //1이거나 길이가 0이면,
+                if(sb.toString().equals("1") || sb.length() == 0){ //1이거나 길이가 0이면,
                     sb.setLength(0);         // sb 초기화
                     continue;
                     
                 }else{
                     long check = Long.parseLong(sb.toString());
+                    System.out.println(check);
                     boolean prime = true;
-                    for(int j = 2; j<=Math.sqrt(check); j++){
+                    for(int j = 3; j<=Math.sqrt(check); j++){
                         if(check % j == 0){
                             prime = false;
                             break;
