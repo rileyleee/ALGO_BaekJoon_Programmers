@@ -14,14 +14,7 @@ class Solution {
             int sl = survey[i].substring(1).charAt(0)-64;
            
             if(response<4){
-                switch (response) {
-                    case 1: type[fl]+=3;
-                    break;
-                    case 2: type[fl]+=2;
-                    break;
-                    case 3: type[fl]+=1;
-                    break;
-                }              
+                type[fl]+=4-response;             
             }else if(response>4){
                 type[sl]+=response-4;
             }
