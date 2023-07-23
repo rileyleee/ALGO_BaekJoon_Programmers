@@ -5,16 +5,12 @@ class Solution {
         // 오늘 날짜
         int tYear = Integer.parseInt(today.substring(0, 4));
         int tMonth = Integer.parseInt(today.substring(5, 7));
-        int tDate = Integer.parseInt(today.substring(8, 10));    
+        int tDate = Integer.parseInt(today.substring(8, 10));            
         
-        // 약관의 수
-        int tCount = terms.length;
-        // 개인정보의 수
-        int pCount = privacies.length;        
-        // 응답 임시 배열 생성
-        int [] temp = new int[pCount];
-        // 파기해야 할 개인정보 수
-        int count = 0;
+        int tCount = terms.length;// 약관의 수     
+        int pCount = privacies.length;// 개인정보의 수        
+        int [] temp = new int[pCount];// 응답 임시 배열 생성       
+        int count = 0;// 파기해야 할 개인정보 수
         
         // 각 개인정보별 처리
         for(int a =0; a<pCount; a++){
