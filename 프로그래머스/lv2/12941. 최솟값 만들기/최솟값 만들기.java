@@ -2,27 +2,21 @@ import java.util.*;
 
 class Solution
 {
-    public int solution(int []A, int []B)
-    {
+    public int solution(int []A, int []B) { //그리디 알고리즘
         
         int L = A.length;
         
-        Arrays.sort(A);
-        Arrays.sort(B);
+        int answer = 0;
         
-        int tempAns1 = 0;
+        // 먼저 각 배열을 정렬하고
+        Arrays.sort(A); 
+        Arrays.sort(B);  
         
-        int tempAns2 = 0;
-        
+        // 오름차순 및 내림차순으로 값을 계산하기
         for(int i = 0; i<L; i++){
-            int temp1 = A[i]*B[L-1-i];
-            tempAns1+=temp1;
-            
-            int temp2 = A[L-1-i]*B[i];
-            tempAns2+=temp2;
+            int temp = A[i]*B[L-1-i];
+            answer+=temp;
         }
-        
-        int answer = Math.min(tempAns1, tempAns2);
 
         return answer;
     }
