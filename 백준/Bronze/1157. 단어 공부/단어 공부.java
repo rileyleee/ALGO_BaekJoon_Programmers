@@ -1,40 +1,63 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+    public static String str;
 
-		String str = sc.next();
-		str = str.toUpperCase(); // 받은 문자열을 대문자로
-		char[] chara = str.toCharArray(); // 문자열을 문자 배열로
-		int[] chaInt = new int[26]; // 알파벳 수 길이의 정수 배열 생성
-        
-		for (int i = 0; i < chara.length; i++) {
-			chaInt[(int) chara[i] - 65] += 1; // 알파벳 -> 정수(아스키: A =0) 인덱스 역할
-		}
+    public static void main(String[] args) {
+        input();
+        solve();
 
-		long max = -1;
-		int idx = 0;
-		for (int i = 0; i < chaInt.length; i++) {
-			if (max < chaInt[i]) {
-				max = chaInt[i];
-				idx = i;
-			}
-		}
+    }
 
-		long cnt = 0;
-		for (int i = 0; i < chaInt.length; i++) {
-			if (max == chaInt[i]) {
-				cnt++;
-			}
-		}
+    private static void solve() {
+        int[] freq = new int[26];
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) > 96) {
+                freq[str.charAt(i) - 'a']++;
+            } else {
+                freq[str.charAt(i) - 'A']++;
+            }
+        }
+        //System.out.println(Arrays.toString(freq));
 
-		if (cnt >= 2) {
-			System.out.println("?");
-		} else {
-			char result = (char) (idx + 65); // 먼저 값을 더해요!!! 0 = 48 A=65 a=97
-			System.out.println(result);
-		}
-		sc.close();
-	}
+        int ans = 0;
+        int idx = -1;
+
+
+        for (int i = 0; i < freq.length; i++) {
+
+            if (freq[i] > ans) {
+                ans = freq[i];
+                idx = i;
+                //System.out.println("갱신된 idx: "+idx);
+            }
+
+        }
+
+        int cnt = 0;
+
+        for (int i = 0; i < freq.length; i++) {
+
+            if (freq[i] == ans) {
+                cnt++;
+            }
+
+        }
+
+        if (cnt > 1) {
+            System.out.println("?");
+        } else {
+            //System.out.println("최종 idx: "+idx);
+            System.out.println((char) (idx + 65));
+        }
+
+    }
+
+    private static void input() {
+
+        Scanner sc = new Scanner(System.in);
+
+        str = sc.next();
+
+    }
 }
