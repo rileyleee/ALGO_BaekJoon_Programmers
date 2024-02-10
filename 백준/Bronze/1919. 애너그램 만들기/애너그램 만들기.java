@@ -11,34 +11,23 @@ public class Main {
 
     private static void solve() {
 
-        char[] firstChar = firstS.toCharArray();
-        char[] secondChar = secondS.toCharArray();
+        int[] firstArr = new int[150];
+        int[] secondArr = new int[150];
 
-        Arrays.sort(firstChar);
-        Arrays.sort(secondChar);
-
-        int i = 0;
-
-        int idx = 0;
-        int answer = 0;
-
-        while (i < firstChar.length && idx < secondChar.length) {
-
-            if (firstChar[i] - 0 != secondChar[idx] - 0) {
-                if (firstChar[i] - 0 > secondChar[idx] - 0) {
-                    idx++;
-                }else{
-                    i++;
-                }
-                answer++;
-            } else {
-                idx++;
-                i++;
-            }
+        // 카운팅 배열 활용
+        for (int i = 0; i < firstS.length(); i++) {
+            firstArr[firstS.charAt(i) - 0]++;
         }
 
-        answer += (secondChar.length - idx);
-        answer += (firstChar.length - i);
+        for (int i = 0; i < secondS.length(); i++) {
+            secondArr[secondS.charAt(i) - 0]++;
+        }
+
+        int answer = 0;
+
+        for (int i = 0; i < 150; i++) {
+            answer += Math.abs(firstArr[i] - secondArr[i]);
+        }
 
         System.out.println(answer);
 
