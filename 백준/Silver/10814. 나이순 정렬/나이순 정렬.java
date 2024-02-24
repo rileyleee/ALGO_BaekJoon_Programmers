@@ -1,32 +1,48 @@
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static class MemberInfo {
+        int registerOrder;
+        int age;
+        String name;
 
+        public MemberInfo(int x, int y, String str) {
+            this.registerOrder = x;
+            this.age = y;
+            this.name = str;
+        }
+    }
+
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        ArrayList<String>[] ages = new ArrayList[201];
+        int n = sc.nextInt();
 
-        for (int i = 0; i < ages.length; i++) {
-            ages[i] = new ArrayList<String>();
+        MemberInfo[] memberList = new MemberInfo[n];
+
+        for (int i = 0; i < n; i++) {
+            int thisAge = sc.nextInt();
+            String thisName = sc.next();
+            memberList[i] = new MemberInfo(i, thisAge, thisName);
         }
 
-        int num = sc.nextInt();
 
-        for (int i = 0; i < num; i++) {
-            int age = sc.nextInt();
-            String name = sc.next();
-            ages[age].add(name);
-        }
-
-        for (int i = 0; i < ages.length; i++) {
-
-            if (ages[i].size() != 0) {
-                for (int j = 0; j < ages[i].size(); j++) {
-                    System.out.println(i + " " + ages[i].get(j));
-                }
+        Arrays.sort(memberList, (o1, o2) -> {
+            if (o1.age == o2.age) { // 가틍면 가입 순
+                return o1.registerOrder - o2.registerOrder;
+            } else { // 나이 오름차순
+                return o1.age - o2.age;
             }
+        });
+
+        StringBuilder sb = new StringBuilder();
+
+        for(int i =0; i<n; i++) {
+            sb.append(memberList[i].age + " "+memberList[i].name+"\n");
         }
+
+        System.out.println(sb);
     }
 }
