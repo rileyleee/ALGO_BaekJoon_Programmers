@@ -43,6 +43,6 @@ public class Main {
             sb.append(memberList[i].age + " "+memberList[i].name+"\n");
         }
 
-        System.out.println(sb);
+        System.out.println(sb.toString());
     }
 }
