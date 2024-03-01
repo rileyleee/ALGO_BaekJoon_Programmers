@@ -1,33 +1,53 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
 
-        int m = sc.nextInt();
-        int n = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-        int[][] table = new int[m+1][m+1];
+        st = new StringTokenizer(br.readLine());
 
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= m; j++) {
-                table[i][j] = table[i][j-1]+sc.nextInt();
-            }
-        }
-        StringBuilder sb = new StringBuilder();
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        int[][] arr = new int[n + 1][n + 1];
+
+
         for (int i = 1; i <= n; i++) {
-
-            int sum = 0;
-            int x1 = sc.nextInt();
-            int y1 = sc.nextInt();
-            int x2 = sc.nextInt();
-            int y2 = sc.nextInt();
-
-            for(int j = x1; j<=x2; j++){
-                sum= sum+(table[j][y2]-table[j][y1-1]);
+            st = new StringTokenizer(br.readLine());
+            for (int j = 1; j <= n; j++) {
+                arr[i][j] = Integer.parseInt(st.nextToken());
             }
-            sb.append(sum).append("\n");
         }
-        System.out.println(sb.toString());
+
+        int[][] acc = new int[n + 1][n + 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                acc[i][j] = acc[i][j - 1] + acc[i - 1][j] - acc[i - 1][j - 1] + arr[i][j];
+            }
+        }
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        while (m-- > 0) {
+            int ans = 0;
+            st = new StringTokenizer(br.readLine());
+            int sx = Integer.parseInt(st.nextToken());
+            int sy = Integer.parseInt(st.nextToken());
+            int ex = Integer.parseInt(st.nextToken());
+            int ey = Integer.parseInt(st.nextToken());
+
+            ans = acc[ex][ey] - (acc[ex][sy - 1] + acc[sx - 1][ey]) + acc[sx - 1][sy - 1];
+
+            //System.out.println(ans);
+
+            bw.write(ans + "\n");
+        }
+
+        br.close();
+        bw.flush();
+
     }
 }
