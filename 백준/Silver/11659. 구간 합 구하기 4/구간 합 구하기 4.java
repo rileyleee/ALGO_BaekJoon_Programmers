@@ -1,58 +1,41 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
 
-        int n = sc.nextInt();
-        int t = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-        //[] arr = new int[n];
-        int [] conSum = new int[n];
+        st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
+        int[] prefixSum = new int[n + 1];
+
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-
-            int thisNum = sc.nextInt();
-
-            //arr[i] = thisNum;
-
-            if (i == 0) {
-                conSum[i] = thisNum;
-            } else {
-                conSum[i] = conSum[i - 1] + thisNum;
-            }
+            prefixSum[i + 1] = prefixSum[i] + Integer.parseInt(st.nextToken());
         }
 
-        //System.out.println(Arrays.toString(conSum));
+        //System.out.println(Arrays.toString(prefixSum));
 
         StringBuilder sb = new StringBuilder();
 
-        while (t-- > 0) {
-            int s = sc.nextInt();
-            int e = sc.nextInt();
 
-            int sum = 0;
+        for (int i = 0; i < m; i++) {
+            st = new StringTokenizer(br.readLine());
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
 
-            //System.out.println("s: " + s);
-            //System.out.println("e-1: " + (e - 1));
-
-            if (s == 1) {
-                sum = conSum[e - 1];
-
-                //System.out.println("sum: "+sum);
-
-            } else {
-                sum = conSum[e - 1] - conSum[s-2];
-                //System.out.println("sum: "+sum);
-            }
-
-            sb.append(Integer.toString(sum)).append("\n");
-
+            sb.append(prefixSum[end] - prefixSum[start - 1] + "\n");
         }
 
-        System.out.println(sb.toString());
-
+        System.out.println(sb);
 
     }
 }
