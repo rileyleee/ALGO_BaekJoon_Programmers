@@ -1,4 +1,6 @@
 import java.io.*;
+
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -13,36 +15,38 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
         n = Integer.parseInt(st.nextToken());
 
-        int[][] growthHint = new int[n][3];
+        int[] totalGrowth = new int[2 * m + 1];
         int[][] larva = new int[m][m];
-
-
-//        for (int i = 0; i < m; i++)
-//            for (int j = 0; j < m; j++) {
-//                larva[i][j] = 1;
-//            }
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
 
-            growthHint[i][0] = Integer.parseInt(st.nextToken());
-            growthHint[i][1] = Integer.parseInt(st.nextToken());
-            growthHint[i][2] = Integer.parseInt(st.nextToken());
+            int first = Integer.parseInt(st.nextToken());
+            int second = Integer.parseInt(st.nextToken());
+            int third = Integer.parseInt(st.nextToken());
+
+            totalGrowth[first + 1] += 1;
+            totalGrowth[first + 1 + second] -= 1; // -1 복원처리
+            totalGrowth[first + 1 + second] += 2;// +2 반영
+            totalGrowth[first + 1 + second + third] -= 2;
+
+
+            //System.out.println(Arrays.toString(totalGrowth));
+
+            //System.out.println("======================================");
         }
 
-        for (int i = 1; i <= n; i++) {
 
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < growthHint[i - 1].length; j++) {
-                for (int k = 0; k < growthHint[i - 1][j]; k++) {
-                    sb.append(j + " ");
-                }
-            }
+        //System.out.println(Arrays.toString(totalGrowth));
 
-            String growthData = sb.toString();
-            //System.out.println("그래서 어떻게 크는데: " + growthData);
-            updateIndependentGrowth(growthData, larva);
+        for (int i = 1; i < totalGrowth.length; i++) {
+            totalGrowth[i] = totalGrowth[i - 1] + totalGrowth[i];
         }
+
+        //System.out.println(Arrays.toString(totalGrowth));
+
+
+        updateIndependentGrowth(totalGrowth, larva);
 
         updateDependentGrowth(larva);
 
@@ -58,25 +62,15 @@ public class Main {
 
     }
 
-    private static void updateIndependentGrowth(String growthData, int[][] larva) {
-        StringTokenizer st = new StringTokenizer(growthData);
-
+    private static void updateIndependentGrowth(int[] totalGrowth, int[][] larva) {
+        int idx = 1;
         for (int i = m - 1; i >= 0; i--) {
-            int thisNum = Integer.parseInt(st.nextToken());
-            larva[i][0] += thisNum;
+            larva[i][0] = totalGrowth[idx++];
         }
 
         for (int i = 1; i <= m - 1; i++) {
-            int thisNum = Integer.parseInt(st.nextToken());
-            larva[0][i] += thisNum;
+            larva[0][i] = totalGrowth[idx++];
         }
-
-//        for (int i = 0; i < m; i++) {
-//            for (int j = 0; j < m; j++) {
-//                System.out.print(larva[i][j]);
-//            }
-//            System.out.println();
-//        }
 
     }
 
@@ -89,14 +83,6 @@ public class Main {
                 larva[i][j] = max;
             }
         }
-
-
-//        for (int i = 0; i < m; i++) {
-//            for (int j = 0; j < m; j++) {
-//                System.out.print(larva[i][j]);
-//            }
-//            System.out.println();
-//        }
     }
 
 
