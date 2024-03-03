@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.Scanner;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -9,28 +6,28 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-        m = sc.nextInt();
-        n = sc.nextInt();
+        st = new StringTokenizer(br.readLine());
+        m = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
 
         int[][] growthHint = new int[n][3];
         int[][] larva = new int[m][m];
 
 
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < m; j++) {
-                larva[i][j] = 1;
-            }
+//        for (int i = 0; i < m; i++)
+//            for (int j = 0; j < m; j++) {
+//                larva[i][j] = 1;
+//            }
 
         for (int i = 0; i < n; i++) {
-            int zero = sc.nextInt();
-            int one = sc.nextInt();
-            int two = sc.nextInt();
+            st = new StringTokenizer(br.readLine());
 
-            growthHint[i][0] = zero;
-            growthHint[i][1] = one;
-            growthHint[i][2] = two;
+            growthHint[i][0] = Integer.parseInt(st.nextToken());
+            growthHint[i][1] = Integer.parseInt(st.nextToken());
+            growthHint[i][2] = Integer.parseInt(st.nextToken());
         }
 
         for (int i = 1; i <= n; i++) {
@@ -44,39 +41,34 @@ public class Main {
 
             String growthData = sb.toString();
             //System.out.println("그래서 어떻게 크는데: " + growthData);
-            updateIndependentGrowth(growthData, larva, i);
+            updateIndependentGrowth(growthData, larva);
         }
 
-        //System.out.println("그래서 최종 결과는 뭐야");
+        updateDependentGrowth(larva);
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
-                bw.write(larva[i][j] + " ");
+                bw.write(larva[i][j] + 1 + " ");
             }
             bw.write("\n");
         }
 
         bw.flush();
 
-
     }
 
-    private static void updateIndependentGrowth(String growthData, int[][] larva, int day) {
+    private static void updateIndependentGrowth(String growthData, int[][] larva) {
         StringTokenizer st = new StringTokenizer(growthData);
-
-        int[][] onlyForTheDay = new int[m][m];
 
         for (int i = m - 1; i >= 0; i--) {
             int thisNum = Integer.parseInt(st.nextToken());
             larva[i][0] += thisNum;
-            onlyForTheDay[i][0] = thisNum;
         }
 
         for (int i = 1; i <= m - 1; i++) {
             int thisNum = Integer.parseInt(st.nextToken());
             larva[0][i] += thisNum;
-            onlyForTheDay[0][i] = thisNum;
         }
 
 //        for (int i = 0; i < m; i++) {
@@ -86,38 +78,27 @@ public class Main {
 //            System.out.println();
 //        }
 
-        updateDependentGrowth(larva, onlyForTheDay, day);
     }
 
-    private static void updateDependentGrowth(int[][] larva, int[][] onlyForTheDay, int day) {
-//        System.out.println("================================");
-//        System.out.println("동일한가유");
-//        for (int i = 0; i < m; i++) {
-//            for (int j = 0; j < m; j++) {
-//                System.out.print(larva[i][j]);
-//            }
-//            System.out.println();
-//        }
-
+    private static void updateDependentGrowth(int[][] larva) {
 
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < m; j++) {
-                int max = checkAround(i, j, onlyForTheDay);
+                int max = checkAround(i, j, larva);
 
-                larva[i][j] += max;
-                onlyForTheDay[i][j] = max;
+                larva[i][j] = max;
             }
         }
-//        System.out.println("=================================");
-//        System.out.println("여기 성장 차이만 보여주는 거임");
-//
+
+
 //        for (int i = 0; i < m; i++) {
 //            for (int j = 0; j < m; j++) {
-//                System.out.print(onlyForTheDay[i][j]);
+//                System.out.print(larva[i][j]);
 //            }
 //            System.out.println();
 //        }
     }
+
 
     private static int checkAround(int i, int j, int[][] onlyForTheDay) {
 
