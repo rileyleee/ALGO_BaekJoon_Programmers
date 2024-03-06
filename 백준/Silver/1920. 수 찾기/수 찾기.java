@@ -3,45 +3,52 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
 
-        long[] base = new long[n];
-
-        for (int i = 0; i < n; i++) {
-            base[i] = sc.nextLong();
-        }
-
-        Arrays.sort(base);
+        Arrays.sort(arr);
 
         int m = sc.nextInt();
 
-        for (int i = 0; i < m; i++) {
+        StringBuilder sb = new StringBuilder();
 
-            long check = sc.nextLong();
+        while (m-- > 0) {
+            int thisNum = sc.nextInt();
+            boolean find = false;
 
-            System.out.println(BinarySearch(base, check));
-        }
-    }
+            int l = 0;
+            int r = arr.length - 1;
 
-    private static int BinarySearch(long[] base, long check) {
+//            System.out.println("thisNum: " + thisNum);
+//
+//            System.out.println("===================================");
 
-        long left = 0; // 가장 작은 수의 인덱스
-        long right = base.length - 1; // 가장 큰 수의 인덱스
-        long mid; // 중간 값
+            while (l <= r) {
+                int mid = (l + r) / 2;
 
-        while (left <= right) {
-            mid = (left + right) / 2;
+//                System.out.println("l: " + l);
+//                System.out.println("r: " + r);
+//                System.out.println("mid: " + mid);
 
-            if (base[(int) mid] == check) {
-                return 1;
-            } else if (base[(int) mid] > check) {
-                right = mid - 1;
-            } else {
-                left = mid + 1;
+                if (arr[mid] < thisNum) l = mid + 1;
+                else if (arr[mid] > thisNum) r = mid - 1;
+                else if (arr[mid] == thisNum) {
+                    sb.append(1 + "\n");
+                    find = true;
+                    break;
+                }
+
             }
+            if (!find) sb.append(0 + "\n");
         }
-        return 0;
+
+        System.out.println(sb);
+
     }
+
 }
