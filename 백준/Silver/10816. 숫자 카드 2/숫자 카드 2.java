@@ -1,37 +1,39 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    // 숫자 카드2
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-        int n = sc.nextInt();
+        int n = Integer.parseInt(br.readLine());
 
-        int[] sg = new int[20000001];
+        int[] cardArr = new int[20000001];
 
-        for (int i = 0; i < n; i++) { //음수 처리를 위함
-            sg[sc.nextInt() + 10000000]++;
+        st = new StringTokenizer(br.readLine());
+
+        // 인덱스 접근이라 O(1)
+        while (n-- > 0) {
+            cardArr[Integer.parseInt(st.nextToken()) + 10000000]++;
         }
 
-        int m = sc.nextInt();
-
-        int[] check = new int[m];
-
-        for (int i = 0; i < m; i++) {
-            check[i] = sc.nextInt();
-        }
+        int m = Integer.parseInt(br.readLine());
 
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < check.length; i++) {
-            sb.append(sg[check[i]+10000000]).append(" ");
+        st = new StringTokenizer(br.readLine());
+
+        while (m-- > 0) {
+
+            int thisNum = Integer.parseInt(st.nextToken());
+
+            sb.append(cardArr[thisNum + 10000000] + " ");
         }
 
-        System.out.println(sb.toString());
+        System.out.println(sb);
 
     }
-
-
 }
