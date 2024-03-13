@@ -1,43 +1,49 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
+    public static void main(String[] args) throws IOException {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int k = sc.nextInt();
-        int n = sc.nextInt();
+        int k = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
 
-        int[] kArr = new int[k];
+        int[] wires = new int[k];
 
-        for (int i = 0; i < k; i++) {
-            kArr[i] = sc.nextInt();
+        int max = -1;
+
+        while (--k >= 0) {
+            wires[k] = Integer.parseInt(br.readLine());
+            max = Math.max(max, wires[k]);
         }
 
-        Arrays.sort(kArr);
+        Arrays.sort(wires);
 
-        long answer = 0;
+        long l = 1;
+        long r = Integer.MAX_VALUE;
 
-        long left = 1;
-        long right = kArr[k-1];
+        long len = -1;
 
-        while(left<=right){
-            long mid = (left+right)/2;
 
-            long max = 0;
+        while (l <= r) {
+            long m = (l + r) / 2;
 
-            for(int i =0; i<kArr.length; i++){
-                max += kArr[i]/mid;
+            int tmp = 0;
+
+            for (int i = 0; i < wires.length; i++) {
+                tmp += (wires[i] / m);
             }
 
-            if(max<n){
-                right = mid-1;
-            }else{
-                answer = mid;
-                left = mid+1;
+            if (tmp >= n) {
+                l = m + 1;
+                len = m;
+            } else {
+                r = m - 1;
             }
         }
-        System.out.println(answer);
+
+        System.out.println(len);
     }
 }
