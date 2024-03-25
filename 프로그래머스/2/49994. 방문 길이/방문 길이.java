@@ -13,7 +13,6 @@ class Solution {
         
         HashSet<String> stepped = new HashSet<>();
         
-        int cnt = 0;
         
         for(int i = 0; i < comm.length; i++){
             char thisComm = comm[i];
@@ -25,7 +24,7 @@ class Solution {
                     
                     if(tmpR<0) continue;        
                     
-                    cnt+=doTheSet(newR, newC, tmpR, tmpC, stepped);      
+                    doTheSet(newR, newC, tmpR, tmpC, stepped);      
                     newR = tmpR;
                     newC = tmpC;
                     
@@ -36,7 +35,7 @@ class Solution {
                     
                     if(tmpR>10) continue;
                     
-                    cnt+=doTheSet(newR, newC, tmpR, tmpC, stepped);      
+                    doTheSet(newR, newC, tmpR, tmpC, stepped);      
                     newR = tmpR;
                     newC = tmpC;
                     break;
@@ -46,7 +45,7 @@ class Solution {
 
                     if(tmpC<0) continue;
                     
-                    cnt+=doTheSet(newR, newC, tmpR, tmpC, stepped);      
+                    doTheSet(newR, newC, tmpR, tmpC, stepped);      
                     newR = tmpR;
                     newC = tmpC;
                     break;
@@ -56,32 +55,26 @@ class Solution {
                     
                     if(tmpC>10) continue;
 
-                    cnt+=doTheSet(newR, newC, tmpR, tmpC, stepped);      
+                    doTheSet(newR, newC, tmpR, tmpC, stepped);      
                     newR = tmpR;
                     newC = tmpC;
                     break;
             }
         }
-        return cnt;
+        return stepped.size()/2;
     }
     
     
-    public static int doTheSet(int originR, int originC, int tempR, int tempC, HashSet<String> set){
+    public static void doTheSet(int originR, int originC, int tempR, int tempC, HashSet<String> set){
 
         StringBuilder sb = new StringBuilder();
         String one = sb.append(originR).append(originC).append(tempR).append(tempC).toString();
         sb.setLength(0);
-        String two = sb.append(tempR).append(tempC).append(originR).append(originC).toString();
-        
-        if(set.contains(one)||set.contains(two)){            
-            set.add(one);
-            set.add(two);
-            return 0;
-        }
+        String two = sb.append(tempR).append(tempC).append(originR).append(originC).toString(); 
+
         set.add(one);
         set.add(two);
-        
-        return 1;
+
     }
     
 }
