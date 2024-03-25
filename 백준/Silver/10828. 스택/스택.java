@@ -1,5 +1,9 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -7,9 +11,8 @@ public class Main {
 
         int commNum = Integer.parseInt(br.readLine());
 
-        // 1) Stack으로 구현
+        // Stack으로 구현
         Stack<Integer> stk1 = new Stack<>();
-        Deque<Integer> stk2 = new ArrayDeque<>();
 
         StringBuilder sb = new StringBuilder();
 
@@ -19,22 +22,22 @@ public class Main {
             switch (comm[0]) {
                 case "push":
                     int num = Integer.parseInt(comm[1]);
-                    stk2.addFirst(num);
+                    stk1.push(num);
                     break;
                 case "pop":
-                    if (stk2.isEmpty()) sb.append(-1 + "\n");
-                    else sb.append(stk2.pollFirst() + "\n");
+                    if (stk1.isEmpty()) sb.append(-1 + "\n");
+                    else sb.append(stk1.pop() + "\n");
                     break;
                 case "size":
-                    sb.append(stk2.size() + "\n");
+                    sb.append(stk1.size() + "\n");
                     break;
                 case "empty":
-                    if (stk2.isEmpty()) sb.append(1 + "\n");
+                    if (stk1.isEmpty()) sb.append(1 + "\n");
                     else sb.append(0 + "\n");
                     break;
                 case "top":
-                    if (stk2.isEmpty()) sb.append(-1 + "\n");
-                    else sb.append(stk2.peekFirst() + "\n");
+                    if (stk1.isEmpty()) sb.append(-1 + "\n");
+                    else sb.append(stk1.peek() + "\n");
                     break;
             }
         }
