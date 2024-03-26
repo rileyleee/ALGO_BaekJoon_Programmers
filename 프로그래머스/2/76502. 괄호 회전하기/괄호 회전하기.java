@@ -3,97 +3,55 @@ import java.util.*;
 
 class Solution {
     public int solution(String s) {
-        int answer = 0;
         
-        for (int i = 0; i < s.length(); i++) {
-
-            StringBuilder sb = new StringBuilder();
-
-            for (int start = i; start < s.length(); start++) {
-                sb.append(s.charAt(start));
-            }
-
-            if (i != 0) {
-
-                for (int end = 0; end < i; end++) {
-                    sb.append(s.charAt(end));
-                }
-            }
-
-            //System.out.println(sb.toString());
-
-            if (check(sb.toString())) {
-                answer++;
-            }
+        char[] target = s.toCharArray();
+        
+        Deque<Character> base = new ArrayDeque<>();
+        
+        for(int i = 0; i<target.length; i++){
+            base.push(target[i]);
         }
-
-        System.out.println(answer);
         
-        return answer;
-    }
-    
-    
-    private static boolean check(String newString) {
-        Stack<Character> stk = new Stack<>();
-
-        boolean right = true;
-
-        outer:
-        for (int i = 0; i < newString.length(); i++) {
-            char thisLetter = newString.charAt(i);
-
-            if (stk.isEmpty()) {
-                // 닫는 괄호이면 false 반환
-                if (thisLetter == ')' || thisLetter == ']' || thisLetter == '}') {
-                    right = false;
+        int ans = 0;
+        
+        for(int i = 0; i<target.length; i++){
+            
+            if(i >= 1) base.push(base.pollLast());
+            
+            Deque<Character> tmp = new ArrayDeque<>(base);
+            
+            Deque<Character> stk = new ArrayDeque<>();
+            
+            boolean impossible = false;
+            
+            while(!tmp.isEmpty()){
+                char thisLetter = tmp.pollLast();
+                //System.out.println("이번 letter: "+ thisLetter);
+                
+                if(stk.isEmpty()&&((thisLetter == ')')||(thisLetter == '}')||(thisLetter == ']'))) {
+                    //System.out.println("비어있고 닫는 괄호야");
+                    impossible = true;
                     break;
-                } else { // 여는 괄호이면 일단 push
+                }
+                
+                if((!stk.isEmpty() && stk.peek()=='(' && thisLetter==')')||
+                   (!stk.isEmpty() && stk.peek()=='{' && thisLetter=='}')||
+                   (!stk.isEmpty() && stk.peek()=='[' && thisLetter==']')) {
+                    //System.out.println("짝궁만나서pop");
+                    stk.pop();                    
+                }
+                
+                else {
+                    //System.out.println("넣었어");
                     stk.push(thisLetter);
                 }
-            } else {
-                switch (thisLetter) {
-                    case '(':
-                    case '{':
-                    case '[':
-                        stk.push(thisLetter);
-                        break;
-                    case ')':
-                        if (stk.peek() == '(') {
-                            stk.pop();
-                        } else {
-                            right = false;
-                            break outer;
-                        }
-                        break;
-                    case '}':
-                        if (stk.peek() == '{') {
-                            stk.pop();
-                        } else {
-                            right = false;
-                            break outer;
-                        }
-                        break;
-                    case ']':
-                        if (stk.peek() == '[') {
-                            stk.pop();
-                        } else {
-                            right = false;
-                            break outer;
-                        }
-                        break;
-                }
-            }
-        }
-
-        if (right) {
-            if(stk.isEmpty()){
-                return true;
-            }else{
-                return false;
-            }
-        } else {
-            return false;
-        }
-
+            }  
+            
+            if(!impossible && stk.isEmpty()) ans++;
+            
+        }   
+        
+        return ans;
+        
     }
 }
