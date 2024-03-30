@@ -1,16 +1,17 @@
 import java.util.*;
 
 class Solution {
-    public static int find(int i, int[] parents){
+    public static int[] parents;
+    public static int find(int i){
         if(parents[i] == i) return parents[i];
         
-        parents[i] = find(parents[i], parents);
+        parents[i] = find(parents[i]);
         return parents[i];
     }
     
-    public static void union(int i, int j, int[] parents){
-        int rootI = find(i, parents);
-        int rootJ = find(j, parents);
+    public static void union(int i, int j){
+        int rootI = find(i);
+        int rootJ = find(j);
         parents[rootJ] = rootI;
     }
     
@@ -18,10 +19,10 @@ class Solution {
         int answer = 0;
         int connected = 1;
         
-        int [] island = new int[n];
+        parents = new int[n];
         
         for(int i = 0; i < n; i++){
-            island[i] = i;
+            parents[i] = i;
         }
         
         Arrays.sort(costs, (o1, o2)->          
@@ -31,8 +32,8 @@ class Solution {
             
             if(connected == n-1) break;
             
-            if(find(edge[0], island)!=find(edge[1], island)) {
-                union(edge[0], edge[1], island);
+            if(find(edge[0])!=find(edge[1])) {
+                union(edge[0], edge[1]);
                 answer+=edge[2];
             }
                       
