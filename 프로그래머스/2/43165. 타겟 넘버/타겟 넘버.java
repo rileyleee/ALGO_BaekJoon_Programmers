@@ -20,19 +20,11 @@ class Solution {
     private static void dfs (int thisNum, int [] numbers, int sum){    
         
          if(sum == find){            
-            answer++;
-            //System.out.println("더했어요: " + answer);
-            return;
+            answer++;            return;
         } else if(sum > find) return;
         
       
         if(thisNum == numbers.length) return;
-        
-        //System.out.println("이번 인덱스: " + thisNum);
-        
-        
-        
-       
 
         int tmp = sum + numbers[thisNum];
         
