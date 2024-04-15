@@ -1,10 +1,10 @@
 # [level 2] 124 나라의 숫자 - 12899 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12899#) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12899) 
 
 ### 성능 요약
 
-메모리: 51.9 MB, 시간: 0.10 ms
+메모리: 52.4 MB, 시간: 0.05 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 15일 23:53:14
+2024년 04월 16일 00:12:48
 
 ### 문제 설명
 
