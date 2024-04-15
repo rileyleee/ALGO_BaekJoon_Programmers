@@ -1,13 +1,24 @@
-class Solution {
-    public String solution(int n) {
-        StringBuilder answer = new StringBuilder();
+import java.util.*;
 
-        while (n > 0) {
-            int remainder = (n - 1) % 3; // 0부터 시작하는 3진법을 0부터 시작하는 3진법으로 변환
-            answer.insert(0, String.valueOf(remainder == 0 ? 1 : remainder == 1 ? 2 : 4));
+class Solution {
+    
+    public String solution(int n) {    
+        
+        StringBuilder sb = new StringBuilder();
+        
+        while(n > 0){
+            int remainder = (n - 1) % 3;
+            
+            if(remainder == 0) 
+                sb.insert(0, "1");
+            else if(remainder == 1) 
+                sb.insert(0, "2");
+            else if(remainder == 2) 
+                sb.insert(0, "4");
+            
             n = (n - 1) / 3;
         }
-
-        return answer.toString();
-    }
+        
+        return sb.toString();
+    }  
 }
