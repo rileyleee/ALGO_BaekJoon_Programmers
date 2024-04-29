@@ -1,6 +1,6 @@
 # [level 1] Python 개발자 찾기 - 276013 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/276013) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/276013#qna) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 29일 23:19:57
+2024년 04월 29일 23:20:58
 
 ### 문제 설명
 
