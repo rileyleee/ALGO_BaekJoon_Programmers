@@ -1,10 +1,8 @@
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
     public static int n, min, max;
-    public static HashMap<Integer, Character> cal;
     public static int[] calArr, arr, selected;
 
 
@@ -24,14 +22,7 @@ public class Main {
 
         // 최솟값 최댓값 변수 초기화하기
         min = Integer.MAX_VALUE;
-        max = Integer.MIN_VALUE;
-
-        // 연산자 해시맵
-        cal = new HashMap<>();
-        cal.put(0, '+');
-        cal.put(1, '-');
-        cal.put(2, '*');
-        cal.put(3, '/');
+        max = Integer.MIN_VALUE;  
 
         // n-1의 길이를 갖는 연산자 배열 만들기
         selected = new int[n - 1];
