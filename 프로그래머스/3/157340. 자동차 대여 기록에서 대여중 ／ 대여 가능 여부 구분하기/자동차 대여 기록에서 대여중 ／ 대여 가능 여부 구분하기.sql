@@ -1,0 +1,24 @@
+-- 코드를 입력하세요
+WITH TEMP AS
+(
+SELECT CAR_ID, 
+    CASE
+        WHEN '2022-10-16' BETWEEN START_DATE AND END_DATE
+        THEN "대여중"
+        ELSE "대여 가능" 
+    END AS AVAILABILITY 
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+GROUP BY CAR_ID, AVAILABILITY
+ORDER BY 1 DESC
+)
+
+
+SELECT *
+FROM TEMP
+WHERE CAR_ID IN (
+                SELECT CAR_ID
+                FROM TEMP
+                GROUP BY CAR_ID
+                HAVING count(CAR_ID) = 1
+                ) OR AVAILABILITY = '대여중'
+ORDER BY CAR_ID DESC;
